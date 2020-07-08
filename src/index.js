@@ -4,20 +4,7 @@ import ReactDOM from "react-dom";
 import "./styles.css";
 import logo from "./images/logo.png";
 
-function CharacterCard(props) {
-  const { character } = props;
 
-  return (
-    <div
-      className="CharacterCard"
-      style={{ backgroundImage: `url(${character.image})` }}
-    >
-      <div className="CharacterCard__name-container text-truncate">
-        {character.name}
-      </div>
-    </div>
-  );
-}
 
 class App extends React.Component {
   state = {
@@ -68,13 +55,24 @@ class App extends React.Component {
 
           <ul className="row">
             {this.state.data.results.map(character => (
+
               <li className="col-6 col-md-3" key={character.id}>
-                <CharacterCard character={character} />
+                <div className="CharacterCard"
+                  style={{ backgroundImage: `url(${character.image})` }}>
+                    
+                    <div style={{ textAlign: `center`, color:`white`, marginTop:`50%`}}>
+                      {character.name}
+                    </div>
+                </div>
               </li>
             ))}
           </ul>
 
-          {this.state.loading && <p className="text-center">Loading...</p>}
+          {this.state.loading && <p className="text-center">
+            <div class="spinner-border text-danger" role="status">
+              <span class="sr-only">Loading...</span>
+            </div>
+          </p>}
 
           {!this.state.loading && this.state.data.info.next && (
             <button onClick={() => this.fetchCharacters()}>Load More</button>
@@ -85,5 +83,8 @@ class App extends React.Component {
   }
 }
 
-const rootElement = document.getElementById("root");
-ReactDOM.render(<App />, rootElement);
+
+
+
+
+ReactDOM.render(<App />, document.getElementById("root"));
